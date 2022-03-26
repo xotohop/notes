@@ -66,6 +66,8 @@
 
 [Кавычка](https://t.me/webpwn) — о практической безопасности, уязвимостях и атаках на веб-приложения.
 
+[YAH](http://t.me/YAH_Channel) — канал Егора Богомолова.
+
 ### YouTube
 [LiveOverflow](https://www.youtube.com/c/LiveOverflow)
 

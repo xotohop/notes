@@ -1,3 +1,6 @@
+### Reverse Shell Generator
+[revshells.com](https://www.revshells.com)
+
 Переход на удобный шелл:
 `python3 -c 'import pty;pty.spawn("/bin/bash")'`
 
