@@ -24,4 +24,5 @@
 - [Shells](/shells.md)
 - [Google dorks](/google-dorks.md)
 - [Useful links](/useful-links.md)
+- [CCNP Security SENSS 300-206](/ccnp-sec-senss-300-206.md)
 
