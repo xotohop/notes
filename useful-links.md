@@ -19,7 +19,9 @@
 [The Book of Secret Knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) — коллекция вдохновляющих списков, руководств, шпаргалок, блогов, хаков, односложных фраз, инструментов cli/web и многое другое.
 
 [snovvcrash.rocks](https://snovvcrash.rocks/) — блог **@snovvcrash**
+
 [Pentester's Promiscuous Notebook](https://ppn.snovvcrash.rocks/) — база знаний **@snovvcrash**
+
 [WeaponizeKali.sh](https://penetrarnya-tm.github.io/WeaponizeKali.sh/) — тулзы с автоматической установкой **@snovvcrash**
 
 [OSCP Preparation Notes](https://oscpnotes.infosecsanyam.in/)
