@@ -6,23 +6,19 @@
 [SecLists](https://github.com/danielmiessler/SecLists)
 
 ### Test Guides and Knowledge Bases
-[OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/) — тестинг гайд от OWASP по мобильным приложениям.
+[OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/) — тестинг гайд от OWASP по мобильным приложениям
 
-[OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) — тестинг гайд от OWASP по веб-приложениям.
+[OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) — тестинг гайд от OWASP по веб-приложениям
 
-[HowToHunt](https://kathan19.gitbook.io/howtohunt/) — туториал и рекомендации по поиску уязвимостей.
+[HowToHunt](https://kathan19.gitbook.io/howtohunt/) — туториал и рекомендации по поиску уязвимостей
 
-[Pentest Book](https://pentestbook.six2dez.com/) — полезная база знаний по пентесту, сценариям проникновения и многом другом.
+[Pentest Book](https://pentestbook.six2dez.com/) — полезная база знаний по пентесту, сценариям проникновения и многом другом
 
-[HackTricks](https://book.hacktricks.xyz/) — база знаний CTF-игрока, где он делится хакерскими приемами, техниками и всем, что узнал на CTF, а также последними исследованиями и новостями.
+[HackTricks](https://book.hacktricks.xyz/) — база знаний CTF-игрока, где он делится хакерскими приемами, техниками и всем, что узнал на CTF, а также последними исследованиями и новостями
 
-[The Book of Secret Knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) — коллекция вдохновляющих списков, руководств, шпаргалок, блогов, хаков, односложных фраз, инструментов cli/web и многое другое.
-
-[snovvcrash.rocks](https://snovvcrash.rocks/) — блог **@snovvcrash**
+[The Book of Secret Knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) — коллекция вдохновляющих списков, руководств, шпаргалок, блогов, хаков, односложных фраз, инструментов cli/web и многое другое
 
 [Pentester's Promiscuous Notebook](https://ppn.snovvcrash.rocks/) — база знаний **@snovvcrash**
-
-[WeaponizeKali.sh](https://penetrarnya-tm.github.io/WeaponizeKali.sh/) — тулзы с автоматической установкой **@snovvcrash**
 
 [OSCP Preparation Notes](https://oscpnotes.infosecsanyam.in/)
 
@@ -35,15 +31,17 @@
 
 [WTFBins](https://wtfbins.wtf/)
 
+### Tools
+[WeaponizeKali.sh](https://penetrarnya-tm.github.io/WeaponizeKali.sh/) — тулзы с автоматической установкой **@snovvcrash**
+
+[Pentesting/Bug Bounty dockerfiles](https://github.com/AvasDream/pentesting-dockerfiles) — различные докеризированные инструменты, используемые при проверке безопасности
+
 ### Forums & Blogs
 [The SQL Injection Knowledge Base](https://websec.ca/kb/sql_injection) — техники эксплуатации SQL-инъекций и методов обходов WAF
 
 [WebSec](https://www.reddit.com/r/websec/) — самые последние новости о веб-уязвимостях
 
 [0xRick](https://0xrick.github.io) — HTB writeups
-
-[AvasDream](https://avasdream.engineer/)
-[GitHub](https://github.com/AvasDream)
 
 ### Courses & Labs
 [Hacker101](https://www.hackerone.com/for-hackers/hacker-101) — бесплатный кус по веб-безопасности. Много видеоуроков, руководств и других материалов по взлому. Подойдет тем, кто интересуется или уже участвует в программах Bug Bounty
@@ -82,6 +80,7 @@
 [LiveOverflow](https://www.youtube.com/c/LiveOverflow)
 
 [IppSec](https://www.youtube.com/c/ippsec)
+
 [IppSec Search](https://ippsec.rocks/?#)
 
 ### Burp
