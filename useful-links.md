@@ -22,6 +22,8 @@
 
 [OSCP Preparation Notes](https://oscpnotes.infosecsanyam.in/)
 
+[The SQL Injection Knowledge Base](https://websec.ca/kb/sql_injection) — техники эксплуатации SQL-инъекций и методов обходов WAF
+
 ### LOLBINs
 [GTFOBins](https://gtfobins.github.io/) — UNIX
 
@@ -34,10 +36,11 @@
 ### Tools
 [WeaponizeKali.sh](https://penetrarnya-tm.github.io/WeaponizeKali.sh/) — тулзы с автоматической установкой **@snovvcrash**
 
-[Pentesting/Bug Bounty dockerfiles](https://github.com/AvasDream/pentesting-dockerfiles) — различные докеризированные инструменты, используемые при проверке безопасности
+[AvasDream/pentesting-dockerfiles](https://github.com/AvasDream/pentesting-dockerfiles) — различные докеризированные инструменты, используемые при проверке безопасности
+
+[gwen001/pentest-tools](https://github.com/gwen001/pentest-tools) — custom pentesting tools
 
 ### Forums & Blogs
-[The SQL Injection Knowledge Base](https://websec.ca/kb/sql_injection) — техники эксплуатации SQL-инъекций и методов обходов WAF
 
 [WebSec](https://www.reddit.com/r/websec/) — самые последние новости о веб-уязвимостях
 
