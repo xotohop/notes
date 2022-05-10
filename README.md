@@ -4,7 +4,7 @@
 - [SQL injection](/web-security/server-side/sql-injection.md)
 - [Authentication](/web-security/server-side/authentication.md)
 - [Directory traversal](/web-security/server-side/directory-traversal.md)
-- [Commend injection](/web-security/server-side/os-command-injection.md)
+- [Command injection](/web-security/server-side/os-command-injection.md)
 - [Business logic vulnerabilities](/web-security/server-side/business-logic-vulnerabilities.md)
 - [Information disclosure](/web-security/server-side/information-disclosure.md)
 - [Broken access control](/web-security/server-side/broken-access-control.md)
