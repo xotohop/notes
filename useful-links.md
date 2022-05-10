@@ -5,6 +5,8 @@
 
 [SecLists](https://github.com/danielmiessler/SecLists)
 
+[jhaddix](https://gist.github.com/jhaddix)
+
 ### Test Guides and Knowledge Bases
 [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/) — тестинг гайд от OWASP по мобильным приложениям
 
@@ -13,6 +15,10 @@
 [HowToHunt](https://kathan19.gitbook.io/howtohunt/) — туториал и рекомендации по поиску уязвимостей
 
 [Pentest Book](https://pentestbook.six2dez.com/) — полезная база знаний по пентесту, сценариям проникновения и многом другом
+
+[awesome-pentest](https://github.com/enaqx/awesome-pentest) — a collection of awesome penetration testing resources, tools and other shiny things 
+
+[awesome-cybersecurity-blueteam](https://github.com/fabacab/awesome-cybersecurity-blueteam) — a curated collection of awesome resources, tools, and other shiny things for cybersecurity blue teams
 
 [HackTricks](https://book.hacktricks.xyz/) — база знаний CTF-игрока, где он делится хакерскими приемами, техниками и всем, что узнал на CTF, а также последними исследованиями и новостями
 
@@ -23,6 +29,8 @@
 [OSCP Preparation Notes](https://oscpnotes.infosecsanyam.in/)
 
 [The SQL Injection Knowledge Base](https://websec.ca/kb/sql_injection) — техники эксплуатации SQL-инъекций и методов обходов WAF
+
+[AwesomeSearch](https://awesomelists.top) — позволяет быстрее находить нужное в awesome-списках
 
 ### LOLBINs
 [GTFOBins](https://gtfobins.github.io/) — UNIX
@@ -57,6 +65,8 @@
 
 [Root Me](https://www.root-me.org/) — быстрая, доступная и реалистичная платформа для проверки навыков взлома, много заданий различной степени сложности
 
+[WebGoat](https://github.com/WebGoat/WebGoat), [Juice Shop](https://github.com/juice-shop/juice-shop) и другие
+
 ### GitHub
 [All about Bug Bounty](https://github.com/daffainfo/AllAboutBugBounty)
 
@@ -90,8 +100,6 @@
 [Burp Suite Tips](https://habr.com/ru/post/510612/)
 
 [Пишем расширение для Burp Suite с помощью Python](https://habr.com/ru/post/546476/)
-
-[from S.E.](https://t.me/Social_engineering/2037)
 
 [Burp Suite Hot Keys](https://github.com/rinetd/BurpSuite-1/blob/master/CheatSheet.md)
 

