@@ -241,13 +241,10 @@ XSS на основе DOM (также известный как DOM XSS) обы�
 
 Раньше jQuery был очень популярен, и классическая уязвимость DOM XSS была вызвана тем, что веб-сайты использовали этот селектор в сочетании с источником `location.hash` для анимации или автопрокрутки к определенному элементу на странице. Такое поведение часто реализовывалось с помощью уязвимого обработчика события `hashchange`, похожего на следующее: 
 
-`$(window).on('hashchange', function() { `
-	
-	`var element = $(location.hash); `
-	
-	`element[0].scrollIntoView(); `
-
-`});`
+	$(window).on('hashchange', function() {
+	var element = $(location.hash);
+	element[0].scrollIntoView();
+	});`
 
 Поскольку `hash` контролируется пользователем, злоумышленник может использовать это для внедрения XSS-вектора в сток селектора `$()`. Более поздние версии jQuery исправили эту уязвимость, запретив вводить HTML в селектор, когда входные данные начинаются с символа хэша (`#`). Тем не менее, вы все еще можете найти уязвимый код в природе.
 
@@ -293,58 +290,33 @@ Lab: [Stored DOM XSS](https://portswigger.net/web-security/cross-site-scripting/
 ### Какие синки могут привести к уязвимостям DOM-XSS?
 Ниже перечислены основные синки, которые могут привести к уязвимостям DOM XSS: 
 
-`document.write()`
-
-`document.writeln()`
-
-`document.domain`
-
-`element.innerHTML`
-
-`element.outerHTML`
-
-`element.insertAdjacentHTML`
-
-`element.onevent`
+	document.write()
+	document.writeln()
+	document.domain
+	element.innerHTML
+	element.outerHTML
+	element.insertAdjacentHTML
+	element.onevent
 
 Следующие функции jQuery также являются синками, которые могут привести к уязвимостям DOM XSS: 
 
-`add()`
-
-`after()`
-
-`append()`
-
-`animate()`
-
-`insertAfter()`
-
-`insertBefore()`
-
-`before()`
-
-`html()`
-
-`prepend()`
-
-`replaceAll()`
-
-`replaceWith()`
-
-`wrap()`
-
-`wrapInner()`
-
-`wrapAll()`
-
-`has()`
-
-`constructor()`
-
-`init()`
-
-`index()`
-
-`jQuery.parseHTML()`
-
-`$.parseHTML()`
+	add()
+	after()
+	append()
+	animate()
+	insertAfter()
+	insertBefore()
+	before()
+	html()
+	prepend()
+	replaceAll()
+	replaceWith()
+	wrap()
+	wrapInner()
+	wrapAll()
+	has()
+	constructor()
+	init()
+	index()
+	jQuery.parseHTML()
+	$.parseHTML()
