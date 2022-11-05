@@ -20,8 +20,11 @@
 - [DOM-based vulnerabilities](/web-security/client-side/dom-based.md)
 - [WebSockets](/web-security/client-side/websockets.md)
 
-## Other
-- [Shells](/shells.md)
-- [Google dorks](/google-dorks.md)
-- [Useful links](/links.md)
+## OSINT
+- [Google dorks](./osint/google-dorks.md)
+
+## Useful
+- [Shells](./useful/shells.md)
+- [Links](./useful/links.md)
+- [GitHub ssh](./useful/github-ssh.md5)
 

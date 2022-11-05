@@ -2,6 +2,8 @@
 
 вся суть: ошибки логики + брутфорс
 
+(когда-нибудь допишу)
+
 [Chorus]
 
 I hate brute-force, I hate brute-force, I hate brute-force
