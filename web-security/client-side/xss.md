@@ -8,15 +8,21 @@
 ## Reflected XSS
 Функция поиска, которая получает поисковый запрос от пользователя в параметре URL:
 
-	https://insecure-website.com/search?term=gift
+```
+https://insecure-website.com/search?term=gift
 
-	<p>You searched for: gift</p>
+<p>You searched for: gift</p>
+```
 
 Эксплуатация:
 
-	https://insecure-website.com/search?term=<script>/*+Bad+stuff+here...+*/</script>
+```
+https://insecure-website.com/search?term=<script>/*+Bad+stuff+here...+*/</script>
+```
 
-	<p>You searched for: <script>/* Bad stuff here... */</script></p>
+```
+<p>You searched for: <script>/* Bad stuff here... */</script></p>
+```
 
 ### XSS между тегами HTML
 Когда контекст XSS представляет собой текст между тегами HTML, необходимо ввести несколько новых тегов HTML, предназначенных для запуска выполнения JavaScript.
@@ -126,18 +132,22 @@ Linux: `ALT+X`
 
 ## Stored XSS
 Веб-сайт позволяет пользователям оставлять комментарии к записям в блоге, которые отображаются другим пользователям. Пользователи отправляют комментарии с помощью HTTP-запроса, как показано ниже: 
+```
+POST /post/comment HTTP/1.1
+Host: vulnerable-website.com
+Content-Length: 100
+```
 
-	POST /post/comment HTTP/1.1
-	Host: vulnerable-website.com
-	Content-Length: 100
-
-	postId=3&comment=This+post+was+extremely+helpful.&name=Carlos+Montoya&email=carlos%40normal-user.net`
+```
+postId=3&comment=This+post+was+extremely+helpful.&name=Carlos+Montoya&email=carlos%40normal-user.net
+```
 
 После отправки этого комментария любой пользователь, который посетит эту запись в блоге, получит в ответе приложения следующее:
+```
+<p>This post was extremely helpful.</p>
 
-	<p>This post was extremely helpful.</p>
-
-	<script>/* Bad stuff here... */</script>
+<script>/* Bad stuff here... */</script>
+```
 
 Эксплуатация:
 
