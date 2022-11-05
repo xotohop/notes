@@ -26,5 +26,5 @@
 ## Useful
 - [Shells](./useful/shells.md)
 - [Links](./useful/links.md)
-- [GitHub ssh](./useful/github-ssh.md5)
+- [GitHub ssh](./useful/github-ssh.md)
 
