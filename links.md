@@ -1,7 +1,6 @@
 ### Useful
-[AwesomeSearch](https://awesomelists.top) — позволяет быстрее находить нужное в awesome-списках
-
-[AwesomeShell](https://github.com/D00Movenok/AwesomeShell) — zsh, vim, tmux
+- [AwesomeSearch](https://awesomelists.top) — позволяет быстрее находить нужное в awesome-списках
+- [AwesomeShell](https://github.com/D00Movenok/AwesomeShell) — zsh, vim, tmux
 
 ### Payloads&Wordlists
 - [Payload Box](https://github.com/payloadbox)
@@ -28,7 +27,6 @@
 - [JuiceShop](https://github.com/juice-shop/juice-shop)
 - [Gin&JuiceShop](https://ginandjuice.shop/)
 - [Secure-Cookie](https://secure-cookie.io/)
-
 
 ### Pitest))
 #### LOLBINs
