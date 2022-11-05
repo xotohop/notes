@@ -347,50 +347,62 @@ ___Обратите внимание___
 
 В случае _reflected+DOM_ уязвимости сервер обрабатывает данные из запроса и отражает их в ответе. Отраженные данные могут быть помещены в строковый литерал JavaScript или элемент данных в DOM, например, поле формы. Затем сценарий на странице обрабатывает отраженные данные небезопасным способом, в конечном итоге записывая их в опасный сток. 
 
-	eval('var data = "reflected string"');
+```
+eval('var data = "reflected string"');
+```
 
 Lab: [Reflected DOM XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected)
 
-	\"-alert(1)}//
+```
+\"-alert(1)}//
+```
 
 Веб-сайты также могут хранить данные на сервере и отражать их в другом месте. При уязвимости _stored+DOM_ сервер получает данные от одного запроса, сохраняет их, а затем включает в последующий ответ. Скрипт в последующем ответе содержит синк, который затем обрабатывает данные небезопасным способом. 
 
-	element.innerHTML = comment.author
+```
+element.innerHTML = comment.author
+```
 
 Lab: [Stored DOM XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-stored)
 
-	<><img+src=1+onerror=alert(1)>
+```
+<><img+src=1+onerror=alert(1)>
+```
 
 ### Какие синки могут привести к уязвимостям DOM-XSS?
 Ниже перечислены основные синки, которые могут привести к уязвимостям DOM XSS: 
 
-	document.write()
-	document.writeln()
-	document.domain
-	element.innerHTML
-	element.outerHTML
-	element.insertAdjacentHTML
-	element.onevent
+```
+document.write()
+document.writeln()
+document.domain
+element.innerHTML
+element.outerHTML
+element.insertAdjacentHTML
+element.onevent
+```
 
 Следующие функции jQuery также являются синками, которые могут привести к уязвимостям DOM XSS: 
 
-	add()
-	after()
-	append()
-	animate()
-	insertAfter()
-	insertBefore()
-	before()
-	html()
-	prepend()
-	replaceAll()
-	replaceWith()
-	wrap()
-	wrapInner()
-	wrapAll()
-	has()
-	constructor()
-	init()
-	index()
-	jQuery.parseHTML()
-	$.parseHTML()
+```
+add()
+after()
+append()
+animate()
+insertAfter()
+insertBefore()
+before()
+html()
+prepend()
+replaceAll()
+replaceWith()
+wrap()
+wrapInner()
+wrapAll()
+has()
+constructor()
+init()
+index()
+jQuery.parseHTML()
+$.parseHTML()
+```

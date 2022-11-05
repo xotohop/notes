@@ -8,6 +8,7 @@
 - [SecLists](https://github.com/danielmiessler/SecLists)
 - [jhaddix](https://gist.github.com/jhaddix)
 - [jhaddix/all.txt](https://gist.github.com/jhaddix/86a06c5dc309d08580a018c66354a056)
+- [YAWR](https://github.com/empty-jack/YAWR)
 
 # Web&Mobile
 - [OWASP Mobile Security Testing Guide](https://owasp.org/www-project-mobile-security-testing-guide/) — тестинг гайд от OWASP по мобильным приложениям

@@ -22,6 +22,7 @@
 
 ## OSINT
 - [Google dorks](./osint/google-dorks.md)
+- [Links](./osint/links.md)
 
 ## Useful
 - [Shells](./useful/shells.md)
