@@ -14,7 +14,7 @@
 
 ### Client-side
 - [Cross-site scripting](/web-security/client-side/xss.md)
-- [Cross-site request forgery](/web-security/client-side/csrf.md)
+- [Cross-site request forgery](csrf.md)
 - [Cross-origin resourse sharing](/web-security/client-side/cors.md)
 - [Clickjacking](/web-security/client-side/clickjacking.md)
 - [DOM-based vulnerabilities](/web-security/client-side/dom-based.md)

