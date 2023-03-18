@@ -175,5 +175,5 @@ csrf=R8ov2YBfTYmzFyjit8o2hKBuoIjXXVpa&email=wiener@normal-user.com
 ## SameSite cookie
 
 
-## Refer-based валидация
+## Referer-based валидация
 
