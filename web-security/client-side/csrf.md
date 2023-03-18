@@ -37,9 +37,54 @@ email=wiener@normal-user.com
 - Если пользователь вошел на уязвимый сайт, его браузер автоматически включит в запрос сессионный файл cookie (при условии, что не используются SameSite cookie).
 - Уязвимый веб-сайт обработает запрос обычным образом, расценит его как сделанный пользователем-жертвой и изменит его адрес электронной почты.
 
-# Common defences against CSRF
+# Общие меры защиты от CSRF
 ## CSRF токены
+CSRF-токен - это уникальное, секретное и непредсказуемое значение, которое генерируется приложением на стороне сервера и передается клиенту. При отправке запроса на выполнение сенситив действия, такого как отправка формы, клиент должен указать правильный маркер CSRF. В противном случае сервер откажется выполнять запрошенное действие.
 
+Распространенным способом передачи CSRF-токенов клиенту является включение их в качестве скрытого параметра в HTML-форму, например:
+
+```html
+<form name="change-email-form" action="/my-account/change-email" method="POST">
+	<label>Email</label>
+	<input required type="email" name="email" value="example@normal-website.com">
+	<input required type="hidden" name="csrf" value="50FaWgdOhi9M9wyna8taR1k3ODOR8d6u">
+	<button class='button' type='submit'> Update email </button>
+</form>
+```
+
+Отправка этой формы приводит к следующему запросу:
+
+```http
+POST /my-account/change-email HTTP/1.1
+Host: normal-website.com
+Content-Length: 70
+Content-Type: application/x-www-form-urlencoded
+
+csrf=50FaWgdOhi9M9wyna8taR1k3ODOR8d6u&email=example@normal-website.com
+```
+
+### Общие недостатки при валидации CSRF токенов
+#### Валидация CSRF-токена зависит от метода запроса
+Некоторые приложения правильно проверяют маркер, когда запрос использует метод POST, но пропускают проверку, когда используется метод GET. В этой ситуации можно переключиться на метод GET, чтобы обойти валидацию:
+
+```http
+GET /email/change?email=pwned@evil-user.net HTTP/1.1
+Host: vulnerable-website.com
+Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm
+```
+
+#### Проверка CSRF токена зависит от наличия токена
+Некоторые приложения правильно проверяют маркер, если он присутствует, но пропускают проверку, если маркер пропущен. В этой ситуации можно удалить весь параметр, содержащий токен (а не только его значение), чтобы обойти проверку:
+
+```http
+POST /email/change HTTP/1.1
+Host: vulnerable-website.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 25
+Cookie: session=2yQIDcpia41WrATfjPqvm9tOkDvkMvLm
+
+email=pwned@evil-user.net
+```
 
 ## SameSite cookie
 
