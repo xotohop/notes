@@ -1,6 +1,7 @@
 [Directory traversal](https://portswigger.net/web-security/file-path-traversal)
 
 # Чтение произвольных файлов через обход каталога
+
 Unix-based:
 
 ```
@@ -14,6 +15,7 @@ https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini
 ```
 
 # Общие препятствия для использования уязвимостей обхода путей к файлам
+
 Использование абсолютной пути:
 
 ```

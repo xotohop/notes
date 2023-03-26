@@ -1,6 +1,9 @@
 # Table of Contents
+
 ## Web Security
+
 ### Server-side
+
 - [SQL injection](./web-security/server-side/sql-injection.md)
 - [Authentication](./web-security/server-side/authentication.md)
 - [Directory traversal](./web-security/server-side/directory-traversal.md)
@@ -13,6 +16,7 @@
 - [XXE injection](./web-security/server-side/xxe-injection.md)
 
 ### Client-side
+
 - [Cross-site scripting](./web-security/client-side/xss.md)
 - [Cross-site request forgery](./web-security/client-side/csrf.md)
 - [Cross-origin resourse sharing](./web-security/client-side/cors.md) (current)
@@ -21,10 +25,12 @@
 - [WebSockets](./web-security/client-side/websockets.md)
 
 ## OSINT
+
 - [Google dorks](./osint/google-dorks.md)
 - [Links](./osint/links.md)
 
 ## Useful
+
 - [Shells](./useful/shells.md)
 - [Links](./useful/links.md)
 - [GitHub ssh](./useful/github-ssh.md)

@@ -30,8 +30,11 @@ stockreport.pl & whoami & 29
 ```
 
 # Полезные команды
+
 ![Some useful commands](../../images/OS_command_injection_useful_commands.jpg)
+
 # Слепая инъекция команд
+
 На примере отправки отзыва о сайте:
 
 ```
@@ -65,6 +68,7 @@ mail -s "This site is great" -aFrom:peter@normal-user.net feedback@vulnerable-we
 ```
 
 # Способы инъекции
+
 Следующие разделители работают на Windows и Unix-based системах:
 
 ```

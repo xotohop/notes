@@ -1,11 +1,14 @@
 [Access control](https://portswigger.net/web-security/access-control)
 
 # Вертикальная эскалация привелегий
+
 ## Незащищенная функциональность
+
 - [Unprotected admin functionality](https://portswigger.net/web-security/access-control/lab-unprotected-admin-functionality)
 - [Unprotected admin functionality with unpredictable URL](https://portswigger.net/web-security/access-control/lab-unprotected-admin-functionality-with-unpredictable-url)
 
 ## Методы управления доступом на основе параметров
+
 Некоторые приложения определяют права доступа или роль пользователя при входе в систему и сохраняют эту информацию в контролируемом пользователем месте, например, в скрытом поле, файле cookie или заданном параметре строки запроса:
 
 ```
@@ -17,6 +20,7 @@ https://insecure-website.com/login/home.jsp?role=1
 - [User role can be modified in user profile](https://portswigger.net/web-security/access-control/lab-user-role-can-be-modified-in-user-profile)
 
 ## Нарушение контроля доступа в результате неправильной конфигурации платформы
+
 Некоторые фреймфорки поддерживают различные нестандартные HTTP-заголовки, которые можно использовать для переопределения URL в исходном запросе, например:
 
 ```
@@ -43,14 +47,17 @@ GET /admin-roles?username=wiener&action=upgrade
 - [Method-based access control can be circumvented](https://portswigger.net/web-security/access-control/lab-method-based-access-control-can-be-circumvented)
 
 # Горизонтальная эскалация привелегий
+
 - [User ID controlled by request parameter](https://portswigger.net/web-security/access-control/lab-user-id-controlled-by-request-parameter)
 - [User ID controlled by request parameter, with unpredictable user IDs](https://portswigger.net/web-security/access-control/lab-user-id-controlled-by-request-parameter-with-unpredictable-user-ids)
 - [User ID controlled by request parameter with data leakage in redirect](https://portswigger.net/web-security/access-control/lab-user-id-controlled-by-request-parameter-with-data-leakage-in-redirect)
 
 ## Переход от горизонтальной  эскалации привилегий к вертикальной
+
 - [User ID controlled by request parameter with password disclosure](https://portswigger.net/web-security/access-control/lab-user-id-controlled-by-request-parameter-with-password-disclosure)
 
 ## IDOR
+
 [Insecure direct object references](https://portswigger.net/web-security/access-control/idor)
 
 **IDOR** возникает, когда приложение использует пользовательский ввод для прямого доступа к объектам, а злоумышленник может изменить этот ввод для получения несанкционированного доступа.
@@ -70,14 +77,17 @@ https://insecure-website.com/static/12144.txt
 ```
 
 ## Уязвимости управления доступом в многоступенчатых процессах
+
 [Multi-step process with no access control on one step](https://portswigger.net/web-security/access-control/lab-multi-step-process-with-no-access-control-on-one-step)
 
 ## Контроль доступа на основе заголовка Referer
+
 Например, приложение обеспечивает надежный контроль доступа к главной административной странице `/admin`, но для вложенных страниц, таких как `/admin/deleteUser`, проверяет только заголовок `Referer`. Если заголовок `Referer` содержит основной URL `/admin`, то запрос разрешен.
 
 [Referer-based access control](https://portswigger.net/web-security/access-control/lab-referer-based-access-control)
 
 ## Контроль доступа на основе местоположения
+
 Некоторые веб-сайты применяют контроль доступа к ресурсам на основе географического местоположения пользователя. Это может применяться, например, в банковских приложениях или медиа-сервисах, где действует государственное законодательство или ограничения на ведение бизнеса. Такие средства контроля доступа часто можно обойти, используя веб-прокси, VPN или манипулируя механизмами геолокации на стороне клиента.
 
 

@@ -2,4 +2,4 @@
 
 [Examples](https://portswigger.net/web-security/logic-flaws/examples)
 
-Весь топик в целом*
+сложно, нужно быть умним
