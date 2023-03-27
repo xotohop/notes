@@ -2,6 +2,11 @@
 
 [Cheat sheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
 
+To do:
+- https://portswigger.net/web-security/cross-site-scripting/contexts/client-side-template-injection
+- https://portswigger.net/web-security/cross-site-scripting/content-security-policy
+- https://portswigger.net/web-security/cross-site-scripting/dangling-markup
+
 # XSS PoC
 
 `alert(document.domain)` or `print()`
